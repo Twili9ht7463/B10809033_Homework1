@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -78,7 +79,6 @@ public class DeviceAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
             t1.setText(device.deviceName);
             t2.setText(device.RSSI);
             t3.setText(device.content);
-
         }
     }
 }

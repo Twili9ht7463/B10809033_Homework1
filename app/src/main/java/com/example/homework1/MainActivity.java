@@ -26,14 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         enter = (Button)findViewById(R.id.button);
-        enter.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,MainActivity2.class);
-                startActivity(intent);
-            }
+        enter.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this,MainActivity2.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

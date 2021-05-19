@@ -3,6 +3,7 @@ package com.example.homework1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.bluetooth.BluetoothAdapter;
@@ -19,12 +20,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity2 extends AppCompatActivity {
 
+    private LinearLayoutManager mLinearLayoutManager;
     private BluetoothManager mBluetoothManager = null;
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothLeScanner mBluetoothLeScanner = null;
@@ -37,7 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
     private final static String[] permissionsWeNeed = new String[]{
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.BLUETOOTH,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     private void setupPermissions(){
@@ -109,6 +112,7 @@ public class MainActivity2 extends AppCompatActivity {
             String dataS = byteArrayToHexString(content);
             if (address == null || address.trim().length() == 0) return;
             mResultAdapter.addDevice(address, ""+mRssi, dataS);
+            Log.d("Test","devices added");
             mResultAdapter.notifyDataSetChanged();
         }
     };
@@ -132,6 +136,10 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         setupPermissions();
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        mResultAdapter = new DeviceAdapter();
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setAdapter(mResultAdapter);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         button = (Button)findViewById(R.id.button3);
         button.setOnClickListener(v -> {
             if (scanning == false){
